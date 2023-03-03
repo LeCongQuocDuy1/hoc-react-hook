@@ -1,69 +1,27 @@
 import './App.css';
-import { useState } from 'react';
-import Task from './Task';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Home } from './pages/Home';
+import { Menu } from './pages/Menu';
+import { Contact } from './pages/Contact';
+import { GetAPI } from './pages/GetAPI';
+import { ToDoApp } from './pages/ToDoApp';
+import { Navigation } from './Navigation';
 
 function App() {
-  const [works, setWorks] = useState([]);
-  const [value, setValue] = useState("");
-
-  const handleValue = (e) => {
-    setValue(e.target.value);
-  }
-
-  const handleAddWork = () => {
-    const task = {
-      id: works.length === 0 ? 1 : works[works.length - 1].id + 1,
-      taskName: value,
-      taskDone: false,
-    }
-    setValue("");
-    setWorks([...works, task]);
-  }
-
-  const handleEnter = (e) => {
-    if (e.key === "Enter") {
-      handleAddWork();
-    }
-  }
-
-  const handleDeleteWork = (id) => {
-    setWorks(works.filter((work) => work.id !== id));
-  }
-
-  const handleDoneWork = (id) => {
-    setWorks(
-      works.map((work) => {
-        if (work.id === id) {
-          return { ...work, taskDone: true, }
-        } else {
-          return work;
-        }
-      })
-    )
-  }
-
   return (
     <div className="App">
-      <h1>Learn a ReactJS HOOK with Quoc Duy</h1>
-
-      <h3>To Do App</h3>
-      <br />
-
-      <input type="text" onChange={handleValue} value={value} onKeyPress={handleEnter} />
-      <button onClick={handleAddWork}>Add</button>
-      <br />
-
-      {works && works.length > 0 &&
-        <ul>
-          {works.map((work) => {
-            return (
-              <Task id={work.id} taskName={work.taskName} doned={work.taskDone} deleteWork={handleDeleteWork} doneWork={handleDoneWork} />
-            )
-          })}
-        </ul>
-      }
-
-
+      <Router>
+        <Navigation />
+        <br />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/getapi" element={<GetAPI />} />
+          <Route path="/todo" element={<ToDoApp />} />
+          <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
+        </Routes>
+      </Router>
     </div>
   );
 }

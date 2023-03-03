@@ -1,18 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import GetApi from './GetApi';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <>
-    <App />
-    <br />
-    <h1>Get API with Axios</h1>
-    <br />
-    <GetApi />
-  </>
+  <App />
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 
-const GetApi = () => {
+export const GetAPI = () => {
 
     const tabs = ["posts", "comments", "albums"];
     const [type, setType] = useState('posts');
@@ -25,14 +25,13 @@ const GetApi = () => {
         })
     }, [])
 
-    const handleClickTab = (tab) => {
-        setType(tab)
-    }
-
     return (
         <>
+            <h1>Get API with Axios</h1>
+            <br />
+
             {tabs.map((tab) => (
-                <button style={type === tab ? { backgroundColor: '#000', color: '#fff' } : {}} key={tab} onClick={() => handleClickTab(tab)}>{tab}</button>
+                <button style={type === tab ? { backgroundColor: '#000', color: '#fff' } : {}} key={tab} onClick={() => setType(tab)}>{tab}</button>
             ))}
             <br />
             <ul>
@@ -47,5 +46,3 @@ const GetApi = () => {
         </>
     )
 }
-
-export default GetApi
