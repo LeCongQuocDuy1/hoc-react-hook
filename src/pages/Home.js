@@ -1,14 +1,14 @@
-import { React } from 'react'
-import { useQuery } from '@tanstack/react-query';
-import Axios from 'axios';
+import { useFetchQuery } from '../custom-hook/useFetchQuery';
+import { useToggle } from '../custom-hook/useToggle';
 
 export const Home = () => {
-    const { data, isLoading, refetch } = useQuery(["post"], () => {
-        return Axios.get("https://catfact.ninja/fact").then((res) => res.data)
-    })
+    const [show, setShow] = useToggle(false);
+    const [show2, setShow2] = useToggle(false);
 
-    if (isLoading) {
-        return <h1>Loading...</h1>
+    const { data, refetchData, isLoadingData } = useFetchQuery();
+
+    if (isLoadingData) {
+        return <h1>Loading data...</h1>
     }
 
     return (
@@ -16,7 +16,18 @@ export const Home = () => {
             <h1>Home page</h1>
             <br />
             <p>{data?.fact}</p>
-            <button onClick={refetch}>Update Data</button>
+            <button onClick={refetchData}>Update Data</button>
+
+            <br />
+            <button onClick={setShow}>
+                {show ? "Hide" : "Show"}
+            </button>
+            {show && <h1>Text Show</h1>}
+            <br />
+            <button onClick={setShow2}>
+                {show2 ? "Hide" : "Show"}
+            </button>
+            {show2 && <h1>Text Show2</h1>}
         </>
     )
 }
