@@ -16,6 +16,7 @@ export const GetAPI = () => {
         axios(`https://jsonplaceholder.typicode.com/${type}`)
             .then((res) => {
                 setPosts(res.data)
+                console.log(res);
             })
     }, [type])
 
